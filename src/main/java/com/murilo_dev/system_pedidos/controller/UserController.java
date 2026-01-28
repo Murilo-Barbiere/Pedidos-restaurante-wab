@@ -1,0 +1,27 @@
+package com.murilo_dev.system_pedidos.controller;
+
+import com.murilo_dev.system_pedidos.model.UserModel;
+import com.murilo_dev.system_pedidos.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    //metodos
+    @GetMapping("/retornaUsers")
+    public Optional<List<UserModel>> retornasUserByID(){
+        return Optional.ofNullable(userService.retornaUsers());
+    }
+}
