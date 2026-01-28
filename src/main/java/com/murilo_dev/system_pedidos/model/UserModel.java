@@ -12,9 +12,9 @@ import lombok.Setter;
 @Table(name = "usuario")
 public class UserModel {
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long ID;
+    private Long id;
     @NotNull
     @Column(name = "nome")
     private String nome;
@@ -25,14 +25,4 @@ public class UserModel {
     @Email
     @Column(name = "email")
     private String email;
-
-    public UserModel(Long ID, String nome, String senha, String email) {
-        this.ID = ID;
-        this.nome = nome;
-        this.senha = senha;
-        this.email = email;
-    }
-
-    public UserModel() {
-    }
 }
