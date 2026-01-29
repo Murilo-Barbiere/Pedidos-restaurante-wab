@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    //metodos
+    //metodos user
     @GetMapping("/retorna_users")
     public Optional<List<UserModel>> retornasUserByID(){
         return Optional.ofNullable(userService.retornaUsers());
