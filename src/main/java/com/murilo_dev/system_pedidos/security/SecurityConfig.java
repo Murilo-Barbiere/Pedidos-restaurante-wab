@@ -6,6 +6,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -25,7 +27,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/registrar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cardapio/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/cardapio/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cardapio/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/cardapio/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
@@ -34,5 +36,10 @@ public class SecurityConfig {
                 .userDetailsService(usuarioDetailsService);
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

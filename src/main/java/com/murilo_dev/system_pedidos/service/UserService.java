@@ -2,7 +2,6 @@ package com.murilo_dev.system_pedidos.service;
 
 import com.murilo_dev.system_pedidos.model.UserModel;
 import com.murilo_dev.system_pedidos.repository.UserRepository;
-import com.murilo_dev.system_pedidos.security.PasswordConfig;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

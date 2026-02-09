@@ -17,14 +17,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //cria
     @PostMapping("/registrar")
     @ResponseStatus(HttpStatus.CREATED)
     public void registraUser(@Valid @RequestBody UserModel user){
         userService.registraUser(user);
     }
 
-    //mostra
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/retorna_users")
     public List<UserModel> retornaUsers(){
