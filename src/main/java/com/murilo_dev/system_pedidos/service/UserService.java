@@ -6,6 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserService {
@@ -23,6 +25,15 @@ public class UserService {
         dadosDoUsuario.setSenha(senhaCod);
 
         return userRepository.save(dadosDoUsuario);
+    }
+
+    public boolean isRegistered(String userName, String userSenha){
+        Optional<UserModel> user = userRepository.findByNome(userName);
+
+        if(user.isPresent()){
+            return passwordEncoder.matches(userSenha, user.get().getSenha());
+        }
+        return false;
     }
 
     public List<UserModel> retornaUsers(){

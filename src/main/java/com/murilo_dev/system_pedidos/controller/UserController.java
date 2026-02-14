@@ -1,7 +1,9 @@
 package com.murilo_dev.system_pedidos.controller;
 
+import com.murilo_dev.system_pedidos.DTO.LoginRequestDto;
 import com.murilo_dev.system_pedidos.model.UserModel;
 import com.murilo_dev.system_pedidos.service.UserService;
+import jakarta.jws.soap.SOAPBinding;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void registraUser(@Valid @RequestBody UserModel user){
         userService.registraUser(user);
+    }
+
+    @PostMapping("/login")
+    public boolean logar(@RequestBody LoginRequestDto userDados){
+        return userService.isRegistered(userDados.nome(), userDados.senha());
     }
 
     @PreAuthorize("hasRole('ADMIN')")

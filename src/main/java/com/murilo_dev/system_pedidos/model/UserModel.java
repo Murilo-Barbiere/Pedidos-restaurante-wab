@@ -1,5 +1,6 @@
 package com.murilo_dev.system_pedidos.model;
 
+import com.murilo_dev.system_pedidos.DTO.RoleDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -24,12 +25,10 @@ public class UserModel {
     @Column(name = "senha")
     private String senha;
 
-    @NotNull
     @Email
     @Column(name = "email")
     private String email;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleDto role;
 }
