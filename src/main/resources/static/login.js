@@ -1,6 +1,7 @@
 function logar(event) {
     event.preventDefault();
-    alert("Login realizado!");
+
+    document.getElementById('errorMessage').innerHTML = '';
 
     let nome = document.getElementById('nomeLogin').value;
     let senha = document.getElementById('senhaLogin').value;
@@ -15,20 +16,29 @@ function logar(event) {
             senha: senha
         })
     })
-        .then(resposta => {
-            if (!resposta.ok) {
-                throw new Error("Usuário não registrado");
-            }
-            return resposta.json();
+            .then(resposta => {
+             if(resposta.ok){
+                 alert('1')
+                return resposta.json();
+             }
+             else if(resposta.status === 401){
+                 throw new Error('Usuário ou senha inválidos');
+             }
+             else{
+                 throw new Error('Erro no servidor');
+             }
         })
-        .then(data => {
-            if (data === true) {
-                alert("Login realizado!");
-            } else {
-                alert("Usuário ou senha inválidos");
-            }
+        .then(userData => {
+            alert('2')
+            localStorage.setItem('user_nome', userData.nome);
+            localStorage.setItem('user_email', userData.email);
+            localStorage.setItem('user_role', userData.role);
+            localStorage.setItem('user_id', userData.id);
+            localStorage.setItem('is_logged_in', 'true');
+
+            window.location.href = 'cardapio.html';
         })
         .catch(error => {
-            console.error("Erro:", error);
+            document.getElementById('errorMessage').innerHTML = error.message;
         });
 }

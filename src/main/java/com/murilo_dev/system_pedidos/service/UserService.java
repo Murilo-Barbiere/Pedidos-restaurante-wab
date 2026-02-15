@@ -1,13 +1,15 @@
 package com.murilo_dev.system_pedidos.service;
 
+import com.murilo_dev.system_pedidos.DTO.LoginRequestDto;
+import com.murilo_dev.system_pedidos.DTO.LoginResponseDto;
 import com.murilo_dev.system_pedidos.model.UserModel;
 import com.murilo_dev.system_pedidos.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserService {
@@ -27,16 +29,28 @@ public class UserService {
         return userRepository.save(dadosDoUsuario);
     }
 
-    public boolean isRegistered(String userName, String userSenha){
-        Optional<UserModel> user = userRepository.findByNome(userName);
-
+    public Optional<LoginResponseDto> authenticaUser(LoginRequestDto loginRequest){
+        Optional<UserModel> user = userRepository.findByNome(loginRequest.nome());
         if(user.isPresent()){
-            return passwordEncoder.matches(userSenha, user.get().getSenha());
+            boolean senhaValida = passwordEncoder.matches(loginRequest.senha(), user.get().getSenha());
+            if(senhaValida){
+                LoginResponseDto loginResponse = new LoginResponseDto(
+                        user.get().getId(),
+                        user.get().getNome(),
+                        user.get().getEmail(),
+                        user.get().getRole()
+                );
+                return Optional.of(loginResponse);
+            }
         }
-        return false;
+        return Optional.empty();
     }
 
     public List<UserModel> retornaUsers(){
         return userRepository.findAll();
+    }
+
+    public Optional<UserModel> userFindByName(String nome){
+        return userRepository.findByNome(nome);
     }
 }

@@ -22,19 +22,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/registrar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/cardapio/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,  "/cardapio/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/cardapio/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/pedidos/**").permitAll()
-                        .anyRequest().authenticated()
+                        // Permite tudo sem autenticação
+                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/cardapio/**").permitAll()
+                        .requestMatchers("/pedidos/**").permitAll()
+                        .anyRequest().permitAll()  // Todas as requisições são permitidas
                 )
-                .httpBasic(Customizer.withDefaults())
-                .userDetailsService(usuarioDetailsService);
+                // Desabilita a autenticação HTTP Basic
+                .httpBasic(httpBasic -> httpBasic.disable())
+                // Desabilita o formulário de login padrão
+                .formLogin(formLogin -> formLogin.disable());
 
         return http.build();
     }
