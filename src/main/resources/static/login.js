@@ -18,7 +18,6 @@ function logar(event) {
     })
             .then(resposta => {
              if(resposta.ok){
-                 alert('1')
                 return resposta.json();
              }
              else if(resposta.status === 401){
@@ -29,7 +28,6 @@ function logar(event) {
              }
         })
         .then(userData => {
-            alert('2')
             localStorage.setItem('user_nome', userData.nome);
             localStorage.setItem('user_email', userData.email);
             localStorage.setItem('user_role', userData.role);
