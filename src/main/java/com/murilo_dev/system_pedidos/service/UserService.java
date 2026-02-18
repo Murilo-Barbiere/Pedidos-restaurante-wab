@@ -4,7 +4,6 @@ import com.murilo_dev.system_pedidos.DTO.LoginRequestDto;
 import com.murilo_dev.system_pedidos.DTO.LoginResponseDto;
 import com.murilo_dev.system_pedidos.model.UserModel;
 import com.murilo_dev.system_pedidos.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

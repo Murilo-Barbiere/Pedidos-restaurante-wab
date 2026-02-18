@@ -3,14 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>pagina-inicial</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #d0d3d4, #f2f3f4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1{
+            position: absolute;
+            top: 40px;
+            color: #333;
+        }
+
+        #dados_user{
+            background-color: white;
+            width: 320px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        #dados_user h2{
+            margin-bottom: 25px;
+        }
+
+        .text_botao{
+            margin: 15px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .botao{
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .botao:hover{
+            background-color: #45a049;
+            transform: scale(1.03);
+        }
+
+        .botao:active{
+            transform: scale(0.98);
+        }
+    </style>
+
 </head>
 <body>
+    <h1>Sistema de Pedidos</h1>
 
-  <h1>Bem-vindo</h1>
-  <h2>Sistema de pedidos</h2>
+    <div id = "dados_user">
+        <h2>Bem-vindo</h2>
 
-  <button onclick="window.location.href='html+css/login.html'"> Login </button>
+        <p class="text_botao"> fazer login
+            <button class = "botao" onclick="window.location.href='login.html'"> Login </button><br>
+        </p>
 
-
+        <p class="text_botao"> registrar usuario
+            <button class = "botao" onclick="window.location.href='registro.html'"> Cadastrar-se </button>
+        </p>
+    </div>
 </body>
 </html>

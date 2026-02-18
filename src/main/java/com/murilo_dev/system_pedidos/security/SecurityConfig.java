@@ -2,8 +2,6 @@ package com.murilo_dev.system_pedidos.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,13 +23,44 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/cardapio/**").hasRole("ADMIN")
-                        .requestMatchers("/pedidos/**").permitAll()
-                        .anyRequest().permitAll()
+                        // Páginas públicas - LIBERAR TUDO QUE É ESTÁTICO
+                        .requestMatchers("/", "/index.html", "/login.html", "/registro.html").permitAll()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
+
+                        // Rotas da API públicas
+                        .requestMatchers("/user/registrar").permitAll()
+                        .requestMatchers("/user/login").permitAll()  // URL de processamento do login
+
+                        // Rotas protegidas
+                        .requestMatchers("/cardapio/add_elemento_cardapio").hasRole("ADMIN")
+                        .requestMatchers("/user/retorna_users").hasRole("ADMIN")
+                        .requestMatchers("/cardapio/exibir_cardapio").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/pedidos/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/cardapio.html").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/admPagina.html").hasRole("ADMIN")
+
+                        // Qualquer outra requisição precisa de autenticação
+                        .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> httpBasic.disable())
-                .formLogin(formLogin -> formLogin.disable());
+                .formLogin(form -> form
+                        .loginPage("/login.html")
+                        .loginProcessingUrl("/processar-login")
+                        .usernameParameter("nome")
+                        .passwordParameter("senha")
+                        .defaultSuccessUrl("/cardapio.html", true)
+                        .failureUrl("/login.html?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login.html?logout=true")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                )
+                .userDetailsService(usuarioDetailsService);
 
         return http.build();
     }
