@@ -14,6 +14,8 @@ public class CardapioController {
     @Autowired
     private CardapioServise cardapioServise;
 
+    //deletar item do cardapio
+
     @GetMapping("/exibir_cardapio")
     public List<CardapioModel> exibirCardapio(){
         return cardapioServise.retornaCardapioCompleto();

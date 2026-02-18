@@ -1,6 +1,4 @@
-async function listar_itens(event) {
-    event.preventDefault();
-
+async function listar_itens() {
     try {
         const itens = await fetch('/cardapio/exibir_cardapio')
             .then(resposta => resposta.json());
@@ -14,6 +12,12 @@ async function listar_itens(event) {
                     <td>${item.nome}</td>
                     <td>${item.valor.toFixed(2)}</td>
                     <td>${item.descricao}</td>
+                    <td>
+                        <button 
+                            onclick="fazer_pedido(${item.id}, localStorage.getItem('user_id'))">
+                            Pedir
+                        </button>
+                    </td>
                 </tr>
             `;
         });

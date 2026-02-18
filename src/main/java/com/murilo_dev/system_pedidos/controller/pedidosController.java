@@ -26,4 +26,11 @@ public class pedidosController {
     public List<PedidosModel> mostrarPedidos(){
         return pedidosServise.retornPedidos();
     }
+
+    //fazer pedido
+
+    //deletar pedido
+
+    //mostrar pedidos do um X
+
 }

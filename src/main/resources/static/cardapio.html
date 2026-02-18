@@ -24,7 +24,7 @@
         }
 
         table{
-            width: 80%;
+            width: 60%;
             margin: 0 auto;
             border-collapse: collapse;
             background-color: white;
@@ -53,6 +53,18 @@
         tbody tr:last-child td{
             border-bottom: none;
         }
+
+        td button {
+            padding: 6px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
     </style>
 
 
@@ -68,11 +80,13 @@
                 <th>nome</th>
                 <th>valor</th>
                 <th>descrição</th>
+                <th id = "add_pedido"></th>
             </tr>
         </thead>
         <tbody id = "listar_itens"></tbody>
     </table>
 
 <script src="js/cardapio.js"></script>
+<script src="js/fazer_pedido.js"></script>
 </body>
 </html>
