@@ -4,22 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>admFunc</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #d0d3d4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1{
+            margin-top: 30px;
+            color: #333;
+        }
+
+        h3{
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        table{
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th{
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        td{
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover{
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:last-child td{
+            border-bottom: none;
+        }
+
+        td button {
+            padding: 6px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+    </style>
+
 </head>
 <body>
-    <h1>historicos de pedidos</h1>
+    <h1>Dados dos pedidos</h1>
+
+    <h3>Registro de pedidos</h3>
     <table id = "tabela_itens">
         <thead>
         <tr>
-            <th>cliente</th>
-            <th>nome do pedido</th>
-            <th>valor</th>
-            <th>descrição</th>
-            <th id = "pedido_feito"></th>
+            <th>Cliente</th>
+            <th>Nome do pedido</th>
+            <th>Valor</th>
+            <th>Data e hora do pedido</th>
+            <th id = "aux"></th>
         </tr>
         </thead>
-        <tbody id = "listar_itens"></tbody>
+        <tbody id = "listar_pedidos"></tbody>
     </table>
 
-    <script src="admPagina.html"></script>
+    <h3>Historicos de pedidos</h3>
+    <table id="tabela_historico">
+        <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Nome do pedido</th>
+            <th>Valor</th>
+            <th>Pedido feito</th>
+            <th>Pedido entregue</th>
+        </tr>
+        </thead>
+        <tbody id = "lista_historico"></tbody>
+    </table>
+
+    <script src="js/admPagina.js"></script>
 </body>
 </html>

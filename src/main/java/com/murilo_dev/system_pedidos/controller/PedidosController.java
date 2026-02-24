@@ -1,5 +1,6 @@
 package com.murilo_dev.system_pedidos.controller;
 
+import com.murilo_dev.system_pedidos.DTO.DadosHistoricoDto;
 import com.murilo_dev.system_pedidos.DTO.DadosPedidosDto;
 import com.murilo_dev.system_pedidos.model.PedidosModel;
 import com.murilo_dev.system_pedidos.service.PedidosServise;
@@ -28,8 +29,13 @@ public class PedidosController {
         return pedidosServise.retornPedidos();
     }
 
-    @PostMapping("/pediu/{id}")
-    public void pedir(@PathVariable Long id_pedido){
+    @GetMapping("/mostra_historico")
+    public List<DadosHistoricoDto> mostrarHistorico(){
+        return pedidosServise.retornHistorico();
+    }
+
+    @DeleteMapping("/pediu/{id}")
+    public void pedir(@PathVariable("id") Integer id_pedido){
         pedidosServise.pedidoRealizado(id_pedido);
     }
 
